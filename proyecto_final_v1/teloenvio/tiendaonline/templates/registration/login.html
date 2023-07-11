@@ -1,0 +1,21 @@
+{% extends 'tiendaonline/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron fade-in">
+        <h1 class="display-4">¡Bienvenido!</h1>
+        <p class="lead">Este es el login</p>
+        <hr class="my-4">
+        <p>logueate</p>
+        <div class="login-container">
+            <h2>Iniciar sesión</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Iniciar sesión">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

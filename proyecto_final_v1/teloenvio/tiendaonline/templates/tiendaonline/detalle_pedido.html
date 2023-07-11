@@ -1,0 +1,18 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h2>Detalle de pedido</h2>
+
+  <p>Número de pedido: {{ pedido.id }}</p>
+  <p>Cliente: {{ pedido.cliente }}</p>
+  <p>Dirección: {{ pedido.direccion.calle }}, {{ pedido.direccion.ciudad }}, {{ pedido.direccion.codigo_postal }}</p>
+
+  <h3>Productos:</h3>
+  <ul>
+    {% for item in pedido.itempedido_set.all %}
+      <li>{{ item.producto.nombre }} - Cantidad: {{ item.cantidad }} - Subtotal: ${{ item.precio|floatformat:2 }}</li>
+    {% endfor %}
+  </ul>
+
+  <p>Total: ${{ pedido.total|floatformat:2 }}</p>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h2>Seleccionar Cliente</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+        <tr>
+          <td>{{ usuario.username }}</td>
+          <td>
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="cliente_id" value="{{ usuario.id }}">
+              <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

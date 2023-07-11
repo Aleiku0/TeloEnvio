@@ -1,0 +1,36 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for producto in productos %}
+    <tr>
+      <td>
+        {% if producto.imagen %}
+          <img src="{{ producto.imagen.url }}" class="img-thumbnail" alt="{{ producto.nombre }}" style="max-width: 100px;">
+        {% else %}
+          <span>No disponible</span>
+        {% endif %}
+      </td>
+      <td>{{ producto.nombre }}</td>
+      <td>{{ producto.precio }}</td>
+      <td>
+        <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">Eliminar</a>
+        {% comment %} <a href="{% url 'editar_producto' producto.id %}" class="btn btn-primary">Editar</a> {% endcomment %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  <a href="{% url 'crear_producto' %}" class="btn btn-success float-right">Agregar nuevo producto</a>
+{% endblock %}

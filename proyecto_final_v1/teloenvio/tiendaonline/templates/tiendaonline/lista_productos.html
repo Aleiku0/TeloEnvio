@@ -1,0 +1,39 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <h1 class="text-center mb-4">Productos disponibles</h1>
+  <div class="container">
+    <div class="row">
+      {% for producto in productos %}
+        <div class="col-md-3">
+          <div class="card mb-4">
+            {% if producto.imagen %}
+              <img src="{{ producto.imagen.url }}" class="card-img-top shadow object-fit cicular-image " alt="{{ producto.nombre }}">
+            {% else %}
+              <img src="{% static 'tiendaonline/images/placeholder.png' %}" class="card-img-top rounded-circle shadow object-fit" alt="Imagen de Producto">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ producto.nombre }}</h5>
+              <p class="card-text">Precio: ${{ producto.precio }}</p>
+              <p class="card-text">{{ producto.descripcion }}</p>
+
+              <form action="{% url 'agregar_al_carrito' producto.id %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control" name="cantidad" min="1" value="1">
+                  <div class="input-group-append">
+                    <button class="btn btn-danger btn-block rounded-pill" type="submit">Agregar al carrito</button>
+                  </div>
+                </div>
+              </form>
+
+              <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-light btn-block rounded-pill">Ver detalles</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h2>Seleccionar Cliente y Dirección</h2>
+
+  <form method="POST" action="{% url 'seleccionar_cliente_direccion' cliente_id=cliente.id %}">
+    {% csrf_token %}
+
+    <h3>Direcciones del cliente:</h3>
+    {% for direccion in direcciones %}
+      <div>
+        <input type="radio" name="direccion" value="{{ direccion.id }}" id="direccion_{{ direccion.id }}">
+        <label for="direccion_{{ direccion.id }}">{{ direccion.calle }}, {{ direccion.ciudad }}, {{ direccion.codigo_postal }}</label>
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+{% endblock %}

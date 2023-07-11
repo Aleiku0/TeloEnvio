@@ -1,0 +1,29 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h2>Realizar pedido</h2>
+
+  <form method="POST" action="{% url 'realizar_pedido' %}">
+    {% csrf_token %}
+
+    {% if direcciones %}
+      <h3>Direcciones guardadas:</h3>
+      <ul>
+        {% for direccion in direcciones %}
+          <li>
+            <input type="radio" name="direccion_id" value="{{ direccion.id }}" id="direccion_{{ direccion.id }}">
+            <label for="direccion_{{ direccion.id }}">{{ direccion.calle }}, {{ direccion.ciudad }}, {{ direccion.codigo_postal }}</label>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No tienes direcciones guardadas. Agrega una dirección para continuar con el pedido.</p>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+  </form>
+
+  <a href="{% url 'agregar_direccion' %}" class="btn btn-primary">Agregar dirección</a>
+
+{% endblock %}
+

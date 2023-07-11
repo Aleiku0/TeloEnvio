@@ -1,0 +1,40 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h1>Historial de Pedidos</h1>
+  {% if pedidos %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID del Pedido</th>
+          <th>Cliente</th>
+          <th>Fecha de Pedido</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pedido in pedidos %}
+          <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.cliente }}</td>
+            <td>{{ pedido.fecha }}</td>
+            <td>
+              {% comment %} <a href="{% url 'editar_pedido' pedido.id %}" class="btn btn-primary">Editar</a> {% endcomment %}
+              <a href="#" class="btn btn-primary">Editar</a>
+            </td>
+            <td>
+              {% comment %} <form action="{% url 'eliminar_pedido' pedido.id %}" method="post"> {% endcomment %}
+                <form action="#" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay pedidos registrados.</p>
+  {% endif %}
+{% endblock %}

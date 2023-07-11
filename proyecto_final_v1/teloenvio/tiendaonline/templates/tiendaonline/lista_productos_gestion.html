@@ -1,0 +1,38 @@
+{% extends 'tiendaonline/base.html' %}
+
+{% block content %}
+  <h1>Productos disponibles</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+        <tr>
+          <td><img src="{{ producto.imagen.url }}" width="50" height="50" alt="{{ producto.nombre }}"></td>
+          <td>{{ producto.nombre }}</td>
+          <td>${{ producto.precio }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>
+            <form action="{% url 'agregar_al_carrito' producto.id %}" method="POST">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="number" class="form-control" name="cantidad" min="1" value="1">
+                <div class="input-group-append">
+                  <button class="btn btn-success" type="submit">Agregar al carrito</button>
+                </div>
+              </div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
